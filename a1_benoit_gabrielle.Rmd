@@ -1,0 +1,102 @@
+---
+title: "a1_benoit_gabrielle"
+author: "Gabrielle"
+date: '2022-10-08'
+output: html_document
+---
+### Packages for this assignment:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(janitor)
+library(here)
+
+```
+
+### Question 1 
+
+#### Show how to use the here package and command to load in the penguins data from a data folder in your R project.
+
+```{r}
+penguins <- read_csv(here("data","penguins.csv")) 
+```
+
+### Question 2
+#### How many observation and how many variables are in the penguins data?
+
+```{r}
+count(penguins) # tells you the number of observations = 344
+```
+
+### Question 3  
+#### What command allows you to inspect the variable names? Do they need to be cleaned with the janitor command? Explain why or why not.
+
+```{r}
+head(penguins) # shows the first few rows in the data frame
+tail(penguins) # shows the last few rows in the data frame
+names(penguins) # shows you all the variable names
+
+# you do not need to use the janitor command. You can, if you have a preference for how the names are written
+```
+
+### Question 4 
+#### What is the mean, median, interquartile range, min and max of the variable "bill_length_mm"?  Is there any missing data?  
+
+```{r}
+# for the variable: bill_length_mm
+
+summary(penguins$bill_length_mm)
+# mean = 43.92
+# median = 44.45
+# interquartile range = 48.50-39.23 = 9.27
+# min = 32.10
+# max = 59.60
+# NA's (missing data) = 2
+
+```
+
+### Question 5
+#### Using the pipe operator `%>%` demonstrate how to find the summary statistics of flipper_length_mm for male, Gentoo penguins in 2008.
+
+```{r}
+penguins_subset <- penguins %>% select(flipper_length_mm, sex, species, year)
+
+subset1 <- penguins_subset %>% filter(sex == "male", species == "Gentoo", year == 2008)
+
+summary(subset1) # summary for the subset1 data
+summary(subset1$flipper_length_mm) # summary for specifically the flipper_length_mm in the data
+
+```
+
+### Question 6
+#### What are the mean bill lengths, in cm, for all species in 2007?  We are intentionally not telling you the function(s) to use for this one.  You may need to use `na.rm=TRUE`.
+
+##### mean bill length for each species: 
+###### Adelie = 190.24 cm
+###### Chinstrap = 126.68 cm
+###### Gentoo = 159.85 cm
+
+```{r}
+penguins_new_subset <- penguins %>% select(bill_length_mm, species, year)
+
+subset2 <- penguins_new_subset %>% filter(year == 2007)
+
+# go from mm to cm for bill length 
+  #(divide by 10)
+# use "mutate()" to create a new variable
+
+subset2_new <- subset2 %>% 
+  mutate(bill_length_cm = bill_length_mm * 0.1) %>% 
+  group_by(species) %>% 
+  summarize(total_bill_length_cm = sum(bill_length_cm, na.rm=TRUE))
+
+
+```
+
+
+
+
+
+

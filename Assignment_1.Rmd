@@ -1,0 +1,53 @@
+---
+title: "ESM 206 Assignment 1"
+author: "C.L. Jerde"
+date: "2022-10-04"
+output: html_document
+---
+
+**Due by midnight October 12th, 2022** 
+
+**This assignment covers labs 1 and 2**
+
+## Directions: 
+
+Set up a new .Rproj with an Rmarkdown document. The data are available on Gauchospace as penguins.csv in the assignment 1 folder. Your .rmd  and .html file must be uploaded to Gauchospace with your answers clearly marked with an A:. 
+
+You will need these packages for your assignment: 
+
+- `tidyverse()`
+- `janitor()`
+-  `here()`
+
+
+### Question 1 (1 pt) 
+
+Show how to use the here package and command to load in the penguins data from a data folder in your R project.
+
+
+### Question 2 (1 pt) 
+
+How many observation and how many variables are in the penguins data?
+
+
+### Question 3 (2 pts) 
+
+What command allows you to inspect the variable names? Do they need to be cleaned with the janitor command? Explain why or why not.
+
+
+### Question 4 (2 pts) 
+
+What is the mean, median, interquartile range, min and max of the variable "bill_length_mm"?  Is there any missing data?  
+
+
+### Question 5 (2 pts) 
+
+Using the pipe operator `%>%` demonstrate how to find the summary statistics of flipper_length_mm for male, Gentoo penguins in 2008.
+
+
+### Question 6 (2 pts) 
+
+What are the mean bill lengths, in cm, for all species in 2007?  We are intentionally not telling you the function(s) to use for this one.  You may need to use `na.rm=TRUE`. 
+
+
+
