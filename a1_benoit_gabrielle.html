@@ -390,11 +390,21 @@ data from a data folder in your R project.</h4>
 <div id="how-many-observation-and-how-many-variables-are-in-the-penguins-data" class="section level4">
 <h4>How many observation and how many variables are in the penguins
 data?</h4>
-<pre class="r"><code>count(penguins) # tells you the number of observations = 344</code></pre>
+<div id="observations-344" class="section level5">
+<h5>Observations = 344</h5>
+</div>
+<div id="variables-8" class="section level5">
+<h5>Variables = 8</h5>
+<pre class="r"><code>count(penguins)</code></pre>
 <pre><code>## # A tibble: 1 × 1
 ##       n
 ##   &lt;int&gt;
 ## 1   344</code></pre>
+<pre class="r"><code>nrow(penguins)</code></pre>
+<pre><code>## [1] 344</code></pre>
+<pre class="r"><code>ncol(penguins)</code></pre>
+<pre><code>## [1] 8</code></pre>
+</div>
 </div>
 </div>
 <div id="question-3" class="section level3">
@@ -402,6 +412,10 @@ data?</h4>
 <div id="what-command-allows-you-to-inspect-the-variable-names-do-they-need-to-be-cleaned-with-the-janitor-command-explain-why-or-why-not." class="section level4">
 <h4>What command allows you to inspect the variable names? Do they need
 to be cleaned with the janitor command? Explain why or why not.</h4>
+<div id="you-do-not-need-to-use-the-janitor-command.-you-can-if-you-have-a-preference-for-how-the-names-are-written.-penguins-is-already-in-lowercase-snaketidy-format" class="section level5">
+<h5>you do not need to use the janitor command. You can, if you have a
+preference for how the names are written. Penguins is already in
+lowercase snake/tidy format</h5>
 <pre class="r"><code>head(penguins) # shows the first few rows in the data frame</code></pre>
 <pre><code>## # A tibble: 6 × 8
 ##   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
@@ -428,7 +442,7 @@ to be cleaned with the janitor command? Explain why or why not.</h4>
 <pre><code>## [1] &quot;species&quot;           &quot;island&quot;            &quot;bill_length_mm&quot;   
 ## [4] &quot;bill_depth_mm&quot;     &quot;flipper_length_mm&quot; &quot;body_mass_g&quot;      
 ## [7] &quot;sex&quot;               &quot;year&quot;</code></pre>
-<pre class="r"><code># you do not need to use the janitor command. You can, if you have a preference for how the names are written</code></pre>
+</div>
 </div>
 </div>
 <div id="question-4" class="section level3">
@@ -436,17 +450,29 @@ to be cleaned with the janitor command? Explain why or why not.</h4>
 <div id="what-is-the-mean-median-interquartile-range-min-and-max-of-the-variable-bill_length_mm-is-there-any-missing-data" class="section level4">
 <h4>What is the mean, median, interquartile range, min and max of the
 variable “bill_length_mm”? Is there any missing data?</h4>
+<div id="mean-43.92" class="section level5">
+<h5>mean = 43.92</h5>
+</div>
+<div id="median-44.45" class="section level5">
+<h5>median = 44.45</h5>
+</div>
+<div id="interquartile-range-48.50-39.23-9.27" class="section level5">
+<h5>interquartile range = 48.50-39.23 = 9.27</h5>
+</div>
+<div id="min-32.10" class="section level5">
+<h5>min = 32.10</h5>
+</div>
+<div id="max-59.60" class="section level5">
+<h5>max = 59.60</h5>
+</div>
+<div id="nas-missing-data-2" class="section level5">
+<h5>NA’s (missing data) = 2</h5>
 <pre class="r"><code># for the variable: bill_length_mm
 
 summary(penguins$bill_length_mm)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##   32.10   39.23   44.45   43.92   48.50   59.60       2</code></pre>
-<pre class="r"><code># mean = 43.92
-# median = 44.45
-# interquartile range = 48.50-39.23 = 9.27
-# min = 32.10
-# max = 59.60
-# NA&#39;s (missing data) = 2</code></pre>
+</div>
 </div>
 </div>
 <div id="question-5" class="section level3">
@@ -455,11 +481,11 @@ summary(penguins$bill_length_mm)</code></pre>
 <h4>Using the pipe operator <code>%&gt;%</code> demonstrate how to find
 the summary statistics of flipper_length_mm for male, Gentoo penguins in
 2008.</h4>
-<pre class="r"><code>penguins_subset &lt;- penguins %&gt;% select(flipper_length_mm, sex, species, year)
+<pre class="r"><code>penguins_subset &lt;- penguins %&gt;% 
+  select(flipper_length_mm, sex, species, year) %&gt;% 
+  filter(sex == &quot;male&quot;, species == &quot;Gentoo&quot;, year == 2008)
 
-subset1 &lt;- penguins_subset %&gt;% filter(sex == &quot;male&quot;, species == &quot;Gentoo&quot;, year == 2008)
-
-summary(subset1) # summary for the subset1 data</code></pre>
+summary(penguins_subset) # summary for the penguins_subset data</code></pre>
 <pre><code>##  flipper_length_mm     sex              species               year     
 ##  Min.   :208.0     Length:23          Length:23          Min.   :2008  
 ##  1st Qu.:220.0     Class :character   Class :character   1st Qu.:2008  
@@ -467,7 +493,7 @@ summary(subset1) # summary for the subset1 data</code></pre>
 ##  Mean   :222.1                                           Mean   :2008  
 ##  3rd Qu.:225.0                                           3rd Qu.:2008  
 ##  Max.   :231.0                                           Max.   :2008</code></pre>
-<pre class="r"><code>summary(subset1$flipper_length_mm) # summary for specifically the flipper_length_mm in the data</code></pre>
+<pre class="r"><code>summary(penguins_subset$flipper_length_mm) # summary for specifically the flipper_length_mm in the data</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   208.0   220.0   221.0   222.1   225.0   231.0</code></pre>
 </div>
@@ -480,26 +506,26 @@ are intentionally not telling you the function(s) to use for this one.
 You may need to use <code>na.rm=TRUE</code>.</h4>
 <div id="mean-bill-length-for-each-species" class="section level5">
 <h5>mean bill length for each species:</h5>
-<div id="adelie-190.24-cm" class="section level6">
-<h6>Adelie = 190.24 cm</h6>
+<div id="adelie-3.882449-cm" class="section level6">
+<h6>Adelie = 3.882449 cm</h6>
 </div>
-<div id="chinstrap-126.68-cm" class="section level6">
-<h6>Chinstrap = 126.68 cm</h6>
+<div id="chinstrap-4.872308-cm" class="section level6">
+<h6>Chinstrap = 4.872308 cm</h6>
 </div>
-<div id="gentoo-159.85-cm" class="section level6">
-<h6>Gentoo = 159.85 cm</h6>
-<pre class="r"><code>penguins_new_subset &lt;- penguins %&gt;% select(bill_length_mm, species, year)
-
-subset2 &lt;- penguins_new_subset %&gt;% filter(year == 2007)
+<div id="gentoo-4.701471-cm" class="section level6">
+<h6>Gentoo = 4.701471 cm</h6>
+<pre class="r"><code>penguins_new_subset &lt;- penguins %&gt;% 
+  select(bill_length_mm, species, year) %&gt;% 
+  filter(year == 2007)
 
 # go from mm to cm for bill length 
   #(divide by 10)
 # use &quot;mutate()&quot; to create a new variable
 
-subset2_new &lt;- subset2 %&gt;% 
+penguins_new_subset_2 &lt;- penguins_new_subset %&gt;% 
   mutate(bill_length_cm = bill_length_mm * 0.1) %&gt;% 
   group_by(species) %&gt;% 
-  summarize(total_bill_length_cm = sum(bill_length_cm, na.rm=TRUE))</code></pre>
+  summarize(total_bill_length_cm = mean(bill_length_cm, na.rm=TRUE))</code></pre>
 </div>
 </div>
 </div>
